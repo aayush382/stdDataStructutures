@@ -25,7 +25,11 @@ class mystack
  {
      return _table[_top-1];
  }
- 
+ private:
+  vector<int> _table;
+  int _top;
+    
+};
  
  //Adding the linked list version
  
@@ -67,8 +71,4 @@ class mystack
  node *head;
     
 };
- private:
-  vector<int> _table;
-  int _top;
-    
-};
+ 
