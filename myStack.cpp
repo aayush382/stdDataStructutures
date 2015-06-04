@@ -25,6 +25,48 @@ class mystack
  {
      return _table[_top-1];
  }
+ 
+ 
+ //Adding the linked list version
+ 
+ class node{
+    public:
+    int val;
+    node *next;
+    node(int val) : val(val), next(NULL) {}
+};
+
+class mystack
+{
+ public:    
+ mystack() : head(NULL) {}
+ void push(int elem)
+ {
+    node * curr= new node(elem);
+    curr->next=head;
+    head=curr;
+ }
+ void pop()
+ {
+     if(head)
+        head=head->next;
+     
+ }
+ bool isEmpty()
+ {
+     return head==NULL;
+ }
+ int peek()
+ {
+     if(head)
+        return head->val;
+     else
+        return -1;
+ }
+ private:
+ node *head;
+    
+};
  private:
   vector<int> _table;
   int _top;
