@@ -11,6 +11,8 @@ class circularQueue
          
         _end=(_end+1)%_size; 
         _list[_end]=elem;
+        
+        //over-write least recently used data, and update _start pointer.
          if(_end==_start && !_empty)
             _start=(_start+1)%_size;
             
@@ -24,8 +26,11 @@ class circularQueue
             cout << " can't remove empty circular buffer " << endl;
             return;
         }
+        //_start always points to the first added data, least recently used.
        _list[_start]=0; 
        _start=(_start+1)%_size;
+       
+       //This means we deleted all the data.
        if(_start==(_end+1)%_size)
           _empty=true;
         
