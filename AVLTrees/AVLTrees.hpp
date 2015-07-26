@@ -1,16 +1,27 @@
+#include<iostream>
+using namespace std;
+
 
 class node {
     public:
+	node(int val): val(val), left(NULL), right(NULL), height(1) {}
     int val;
-    int height;
     node *left;
     node *right;
-    node(int val): val(val), left(NULL), right(NULL), height(0) {}
+    int height;
 };
 
 class AVLTrees{
     private:
     node * _root;
+
+	int getHeight(node* root)
+    {
+    	if(!root)
+    		return 0;
+
+    	return root->height;
+    }
     node *rotateRight(node * root)
     {
         node * newroot=root->left;
@@ -20,8 +31,8 @@ class AVLTrees{
         root->left=movable;
         
         //adjust heights
-        root->height = max(root->left->height,root->right->height)+1;
-        newroot->height = max(newroot->left->height,newroot->right->height)+1;
+        root->height = max(getHeight(root->left),getHeight(root->right))+1;
+        newroot->height = max(getHeight(newroot->left),getHeight(newroot->right))+1;
         
         return newroot;
     }
@@ -34,8 +45,8 @@ class AVLTrees{
         root->right=movable;
         
         //adjust heights
-        root->height = max(root->left->height,root->right->height)+1;
-        newroot->height = max(newroot->left->height,newroot->right->height)+1;
+        root->height = max(getHeight(root->left),getHeight(root->right))+1;
+        newroot->height = max(getHeight(newroot->left),getHeight(newroot->right))+1;
         
         return newroot;
     }
@@ -51,7 +62,7 @@ class AVLTrees{
             root->right=add(key,root->right);
         
         
-        int diff =root->left->height - root->right->height;
+        int diff = getHeight(root->left) - getHeight(root->right);
         
         if(diff>1 && key < root->left->val)
         {
@@ -75,7 +86,8 @@ class AVLTrees{
             return rotateLeft(root);
         }
         
-        root->height = max(root->left->height,root->right->height)+1;
+        cout << diff << endl;
+        root->height = max(root->left?root->left->height:0,root->right?root->right->height:0)+1;
         
         return root;    
     }
@@ -90,12 +102,24 @@ class AVLTrees{
     	}
 	}
     
+    void inOrder(node *root)
+ 	{
+     	if(root)
+     	{
+         	preOrder(root->left);
+         	cout << root->val << endl;
+         	preOrder(root->right);
+     	}
+ 	}
+
     public:
     AVLTrees(): _root(NULL){}
-    node * add(int key)
+
+    void add(int key)
     {
         _root = add(key,_root);
     }   
+
     void remove(int key)
     {
         //remove(key,_root);
@@ -108,5 +132,9 @@ class AVLTrees{
 	{
     	preOrder(_root);
 	}
+    void inOrder()
+    {
+        inOrder(_root);
+    }
     
 };
