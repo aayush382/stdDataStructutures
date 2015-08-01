@@ -10,16 +10,7 @@ class Dijkstra{
 private:
 	vector<int> pathTo;
 	dirGraph * dGraph;
-
-
-public:
 	vector<int> distTo;
-	Dijkstra(vector<vector<int> > &graph, int n)
-	{
-		dGraph=new dirGraph(graph,n);
-		distTo.reserve(n);
-		pathTo.reserve(n);
-	}
 
 	int extractMin(set<int> &Q)
 	{
@@ -42,6 +33,17 @@ public:
 		distTo[source]=0;
 	}
 
+public:
+
+	Dijkstra(vector<vector<int> > &graph, int n)
+	{
+		dGraph=new dirGraph(graph,n);
+		distTo.resize(n);
+		pathTo.resize(n);
+	}
+
+
+
 
 	void findShortestPath(int source)
 	{
@@ -51,6 +53,7 @@ public:
 		{
 			int vertex = extractMin(Q);
 			Q.erase(vertex);
+			cout << vertex << " " ;
 			for(int i=0;i<dGraph->Adj[vertex].size();i++)
 				relax(dGraph->Adj[vertex][i]);
 		}
@@ -66,6 +69,7 @@ public:
 	{
 		int source=e->getFrom();
 		int dest=e->getTo();
+		cout << " relaxed source " << source << " to dest "  << dest << endl;
 		if(distTo[dest] > distTo[source]+e->weight())
 		{
 			distTo[dest]=distTo[source]+e->weight();
