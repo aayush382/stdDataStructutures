@@ -46,6 +46,7 @@ public:
 	void findShortestPath(int source)
 	{
 		set<int> Q;
+		initialize(source,Q);
 		while(!Q.empty())
 		{
 			int vertex = extractMin(Q);
