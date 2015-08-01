@@ -2,58 +2,72 @@
 #include<iostream>
 #include <queue>
 #include <climits>
+#include <set>
+
 using namespace std;
 
 class Dijkstra{
 private:
 	vector<int> pathTo;
-	vector<int> distTo;
 	dirGraph * dGraph;
 
 
 public:
-	Dijkstra(int graph[][],int n)
+	vector<int> distTo;
+	Dijkstra(vector<vector<int> > &graph, int n)
 	{
 		dGraph=new dirGraph(graph,n);
+		distTo.reserve(n);
+		pathTo.reserve(n);
 	}
-	void initialize(int source)
+
+	int extractMin(set<int> &Q)
+	{
+		set<int>::iterator it=Q.begin();
+		int vertex=*it;
+		for(;it!=Q.end();it++)
+			if(distTo[*it]<distTo[vertex])
+				vertex=*it;
+
+		return vertex;
+	}
+	void initialize(int source, set<int> &Q)
 	{
 		for(int i=0;i<dGraph->getNumVertex();i++)
 		{
 			distTo[i]=INT_MAX;
 			pathTo[i]=-1;
+			Q.insert(i);
 		}
 		distTo[source]=0;
 	}
-	struct compare
-	 {
-	   bool operator()(const int& lhs, const int& rhs)
-	   {
-		   return distTo[lhs]<distTo[rhs];
-	   }
-	 };
+
 
 	void findShortestPath(int source)
 	{
-		initialize(source);
-		priority_queue<int, vector<int>, compare> Q;
-		Q.push(source);
+		set<int> Q;
 		while(!Q.empty())
 		{
-			int vertex = Q.top();
-			Q.pop();
+			int vertex = extractMin(Q);
+			Q.erase(vertex);
 			for(int i=0;i<dGraph->Adj[vertex].size();i++)
 				relax(dGraph->Adj[vertex][i]);
 		}
 	}
 
+	void showShortestPaths()
+	{
+		cout << "Distances "<< endl;
+		for(int i=0;i<distTo.size();i++)
+			cout<<" i " << distTo[i] << endl;
+	}
 	void relax(dirEdge *e)
 	{
 		int source=e->getFrom();
 		int dest=e->getTo();
-		if(distTo(dest)>distTo(source)+e->weight())
+		if(distTo[dest] > distTo[source]+e->weight())
 		{
-			distTo[dest]=distTo(source)+e->weight();
+			distTo[dest]=distTo[source]+e->weight();
 			pathTo[dest]=source;
 		}
 	}

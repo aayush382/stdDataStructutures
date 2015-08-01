@@ -31,8 +31,8 @@ private:
 	int numEdges;
 
 public:
-	vector<vector<dirEdge *>> Adj;
-	dirGraph(int graph[][], int n): numVertex(n),numEdges(0)
+	vector<vector<dirEdge *> > Adj;
+	dirGraph(vector<vector <int> > &graph, int n): numVertex(n),numEdges(0)
 	{
 		Adj.resize(n);
 		for(int i=0;i<n;i++)
@@ -46,6 +46,7 @@ public:
 		Adj[src].push_back(new dirEdge(src,dest,weight));
 		numEdges++;
 	}
+
 	int getNumVertex()
 	{
 		return numVertex;

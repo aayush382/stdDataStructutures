@@ -4,7 +4,10 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Parser.hpp"
+
 using namespace std;
+
 int main() {
  vector <vector <string> > data;
  ifstream infile( "stations.csv" );
@@ -30,9 +33,9 @@ int main() {
  {
    cerr << "Whaaat!\n";
  }
- for (int i=0;i<data.size();i++)
-  for(int j=0;j<data[i].size();j++)
-      cout << i << " " << j << "  and data : " << data[i][j] << endl;
+
+ parseToDistanceMatrix * parser = new parseToDistanceMatrix();
+ vector<vector<int> > result = parser->generateMatrix(data);
 
 return 0;
 }
