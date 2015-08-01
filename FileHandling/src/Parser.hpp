@@ -22,7 +22,7 @@ private:
 public:
 	vector<vector<int> > generateMatrix(vector<vector<string> > &input)
 		{
-		for(int i=0;input.size();i++)
+		for(int i=0;i<input.size();i++)
 		{
 			for(int j=0;j<2;j++)
 			{
@@ -37,7 +37,7 @@ public:
 		int sizeofMatrix = indexMap.size();
 		vector<vector<int> > result(sizeofMatrix,vector<int>(sizeofMatrix,0));
 
-		for(int i=0;input.size();i++)
+		for(int i=0;i<input.size();i++)
 			{
 			int row = indexMap.find(input[i][0])->second;
 			int col = indexMap.find(input[i][1])->second;
