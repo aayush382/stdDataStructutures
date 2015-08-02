@@ -70,7 +70,7 @@ public:
 		int source=e->getFrom();
 		int dest=e->getTo();
 		cout << " relaxed source " << source << " to dest "  << dest << endl;
-		if(distTo[dest] > distTo[source]+e->weight())
+		if(distTo[source] != INT_MAX && distTo[dest] > distTo[source]+e->weight())
 		{
 			distTo[dest]=distTo[source]+e->weight();
 			pathTo[dest]=source;
