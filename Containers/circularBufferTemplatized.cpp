@@ -6,8 +6,8 @@ template <class T>
 class circularQueue
 {
    public:
-   circularQueue(int size):  size(size), head(0), tail(0), empty(true) {array[size];}
-   circularQueue():  size(5),  head(0), tail(0), empty(true) {array[5];}
+   circularQueue(int size):  size(size), head(0), tail(0), empty(true) {array = new T[size];}
+   circularQueue():  size(5),  head(0), tail(0), empty(true) {array = new T[5];}
 
    void add(T elem)
    {
@@ -57,7 +57,7 @@ class circularQueue
    }
 
    private:
-   T array[];
+   T * array;
    int size;
    int head;
    int tail;
